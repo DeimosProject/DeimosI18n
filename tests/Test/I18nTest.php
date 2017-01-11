@@ -51,6 +51,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
     public function testI18nWithoutPrefix()
     {
         $this->assertEquals($this->i18nWithoutPrefix->t('hello'), 'привет');
+        $this->assertEquals($this->i18nWithoutPrefix->t('hello', null, false), 'привет');
         $this->assertEquals($this->i18nWithoutPrefix->t('world'), 'мир');
         $this->assertEquals($this->i18nWithoutPrefix->t('deimos', 'деймос'), 'деймос');
     }
@@ -58,6 +59,7 @@ class I18nTest extends \PHPUnit_Framework_TestCase
     public function testI18nPrefix()
     {
         $this->assertEquals($this->i18nPrefix->t('hello'), 'привет');
+        $this->assertEquals($this->i18nPrefix->t('hello', null, false), null);
         $this->assertEquals($this->i18nPrefix->t('world'), 'мир');
         $this->assertEquals($this->i18nPrefix->t('deimos', 'деймос'), 'деймос');
     }

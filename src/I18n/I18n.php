@@ -33,11 +33,17 @@ abstract class I18n extends \ArrayObject
 
     /**
      * @param string $key
+     * @param bool   $addPrefix
      *
      * @return string
      */
-    protected function prefix($key)
+    protected function prefix($key, $addPrefix = true)
     {
+        if (!$addPrefix)
+        {
+            return $key;
+        }
+
         return ($this->prefix ? $this->prefix . '.' : '') . $key;
     }
 
@@ -67,6 +73,18 @@ abstract class I18n extends \ArrayObject
     }
 
     /**
+     * @param array $storage
+     * @param bool  $addPrefix
+     */
+    public final function stream(array $storage, $addPrefix = true)
+    {
+        foreach ($storage as $key => $item)
+        {
+            $this[$this->prefix($key, $addPrefix)] = $item;
+        }
+    }
+
+    /**
      * load data
      *
      * @return array
@@ -82,13 +100,14 @@ abstract class I18n extends \ArrayObject
     /**
      * @param      $key
      * @param null $default
+     * @param bool $addPrefix
      *
      * @return string
      */
-    public function t($key, $default = null)
+    public function t($key, $default = null, $addPrefix = true)
     {
         $this->load();
-        $itemKey = $this->prefix($key);
+        $itemKey = $this->prefix($key, $addPrefix);
         if (!$this->valid($itemKey))
         {
             $this[$itemKey] = $default;
