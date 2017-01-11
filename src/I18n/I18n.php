@@ -113,7 +113,7 @@ abstract class I18n extends \ArrayObject
             $this[$itemKey] = $default;
             if ($this->isSave)
             {
-                $this->register($itemKey, $default);
+                $this->register($key, $default);
             }
         }
 
