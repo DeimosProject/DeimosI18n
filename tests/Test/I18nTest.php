@@ -3,8 +3,8 @@
 namespace Test;
 
 use DeimosTest\I18n;
-use DeimosTest\I18nSave;
 use DeimosTest\I18nPrefix;
+use DeimosTest\I18nSave;
 
 class I18nTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,6 +62,17 @@ class I18nTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->i18nPrefix->t('hello', null, false), null);
         $this->assertEquals($this->i18nPrefix->t('world'), 'мир');
         $this->assertEquals($this->i18nPrefix->t('deimos', 'деймос'), 'деймос');
+
+        $this->i18nPrefix->stream([
+            'ya' => 'я',
+            'i'  => 'я',
+        ], false);
+
+        $this->assertEquals($this->i18nPrefix->t('ya'), null);
+        $this->assertEquals($this->i18nPrefix->t('ya', null, false), 'я');
+
+        $this->assertEquals($this->i18nPrefix->t('i'), null);
+        $this->assertEquals($this->i18nPrefix->t('i', null, false), 'я');
     }
 
     public function testI18nSave()
